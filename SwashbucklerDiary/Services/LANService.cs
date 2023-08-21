@@ -128,7 +128,7 @@ namespace SwashbucklerDiary.Services
             return true;
         }
 
-        public async Task LANSendAsync(List<DiaryModel> diaries, Stream stream, Func<long, long, Task> action)
+        public async Task LANSendAsync(List<DiaryEntryModel> diaries, Stream stream, Func<long, long, Task> action)
         {
             var filePath = await AppDataService.ExportJsonZipFileAsync(diaries);
 
@@ -150,7 +150,7 @@ namespace SwashbucklerDiary.Services
             }
         }
 
-        public async Task<List<DiaryModel>> LANReceiverAsync(Stream stream, long size, Func<long, long, Task> action)
+        public async Task<List<DiaryEntryModel>> LANReceiverAsync(Stream stream, long size, Func<long, long, Task> action)
         {
             var path = Path.Combine(FileSystem.CacheDirectory, Guid.NewGuid().ToString() + ".zip");
             using (FileStream fileStream = File.Create(path))

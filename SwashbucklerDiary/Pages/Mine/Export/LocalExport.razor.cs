@@ -11,7 +11,7 @@ namespace SwashbucklerDiary.Pages
         private bool ShowExport;
         private bool ShowImport;
         private string? ImportFilePath;
-        private List<DiaryModel> Diaries = new();
+        private List<DiaryEntryModel> Diaries = new();
 
         [Inject]
         private IDiaryService DiaryService { get; set; } = default!;
@@ -88,7 +88,7 @@ namespace SwashbucklerDiary.Pages
 
             try
             {
-                List<DiaryModel>? diaries = await AppDataService.ImportJsonFileAsync(ImportFilePath);
+                List<DiaryEntryModel>? diaries = await AppDataService.ImportJsonFileAsync(ImportFilePath);
                 if (diaries == null || !diaries.Any())
                 {
                     await AlertService.Error(I18n.T("Export.Import.Fail"));

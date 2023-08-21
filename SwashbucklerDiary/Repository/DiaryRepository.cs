@@ -5,15 +5,15 @@ using System.Linq.Expressions;
 
 namespace SwashbucklerDiary.Repository
 {
-    public class DiaryRepository : BaseRepository<DiaryModel>, IDiaryRepository
+    public class DiaryRepository : BaseRepository<DiaryEntryModel>, IDiaryRepository
     {
         public DiaryRepository(ISqlSugarClient context) : base(context)
         {
         }
 
-        public override Task<List<DiaryModel>> GetListTakeAsync(int count)
+        public override Task<List<DiaryEntryModel>> GetListTakeAsync(int count)
         {
-            return base.Context.Queryable<DiaryModel>()
+            return base.Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .OrderByDescending(it => it.CreateTime)
@@ -21,9 +21,9 @@ namespace SwashbucklerDiary.Repository
                 .ToListAsync();
         }
 
-        public override Task<List<DiaryModel>> GetListTakeAsync(int count, Expression<Func<DiaryModel, bool>> func)
+        public override Task<List<DiaryEntryModel>> GetListTakeAsync(int count, Expression<Func<DiaryEntryModel, bool>> func)
         {
-            return base.Context.Queryable<DiaryModel>()
+            return base.Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .Where(func)
@@ -32,7 +32,7 @@ namespace SwashbucklerDiary.Repository
                 .ToListAsync();
         }
 
-        public override Task<bool> InsertAsync(DiaryModel model)
+        public override Task<bool> InsertAsync(DiaryEntryModel model)
         {
             return base.Context.InsertNav(model)
             .Include(it => it.Tags)
@@ -40,7 +40,7 @@ namespace SwashbucklerDiary.Repository
             .ExecuteCommandAsync();
         }
 
-        public override Task<bool> DeleteAsync(DiaryModel model)
+        public override Task<bool> DeleteAsync(DiaryEntryModel model)
         {
             return base.Context.DeleteNav(model)
                 .Include(it => it.Tags, new DeleteNavOptions()
@@ -54,17 +54,17 @@ namespace SwashbucklerDiary.Repository
                 .ExecuteCommandAsync();
         }
 
-        public override Task<DiaryModel> GetByIdAsync(dynamic id)
+        public override Task<DiaryEntryModel> GetByIdAsync(dynamic id)
         {
-            return Context.Queryable<DiaryModel>()
+            return Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .InSingleAsync(id);
         }
 
-        public override Task<DiaryModel> GetFirstAsync(Expression<Func<DiaryModel, bool>> whereExpression)
+        public override Task<DiaryEntryModel> GetFirstAsync(Expression<Func<DiaryEntryModel, bool>> whereExpression)
         {
-            return Context.Queryable<DiaryModel>()
+            return Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .FirstAsync(whereExpression);
@@ -72,26 +72,26 @@ namespace SwashbucklerDiary.Repository
 
         public Task<List<TagModel>> GetTagsAsync(Guid id)
         {
-            return base.Context.Queryable<DiaryModel>()
-                .LeftJoin<DiaryTagModel>((d, dt) => d.Id == dt.DiaryId)
+            return base.Context.Queryable<DiaryEntryModel>()
+                .LeftJoin<DiaryTagModel>((d, dt) => d.Id == dt.DiaryEntryId)
                 .LeftJoin<TagModel>((d, dt, t) => dt.TagId == t.Id)
                 .Where(d => d.Id == id)
                 .Select((d, dt, t) => t)
                 .ToListAsync();
         }
 
-        public override Task<List<DiaryModel>> GetListAsync()
+        public override Task<List<DiaryEntryModel>> GetListAsync()
         {
-            return base.Context.Queryable<DiaryModel>()
+            return base.Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .OrderByDescending(it => it.CreateTime)
                 .ToListAsync();
         }
 
-        public override Task<List<DiaryModel>> GetListAsync(Expression<Func<DiaryModel, bool>> func)
+        public override Task<List<DiaryEntryModel>> GetListAsync(Expression<Func<DiaryEntryModel, bool>> func)
         {
-            return base.Context.Queryable<DiaryModel>()
+            return base.Context.Queryable<DiaryEntryModel>()
                 .Includes(it => it.Tags)
                 .Includes(it => it.Resources)
                 .Where(func)
@@ -99,7 +99,7 @@ namespace SwashbucklerDiary.Repository
                 .ToListAsync();
         }
 
-        public Task<bool> UpdateIncludesAsync(DiaryModel model)
+        public Task<bool> UpdateIncludesAsync(DiaryEntryModel model)
         {
             return base.Context.UpdateNav(model)
             .Include(it => it.Tags, new UpdateNavOptions
@@ -114,14 +114,14 @@ namespace SwashbucklerDiary.Repository
             .ExecuteCommandAsync();
         }
 
-        public Task<bool> UpdateTagsAsync(DiaryModel model)
+        public Task<bool> UpdateTagsAsync(DiaryEntryModel model)
         {
             return base.Context.UpdateNav(model)
             .Include(it => it.Tags)
             .ExecuteCommandAsync();
         }
 
-        public Task<bool> ImportAsync(List<DiaryModel> diaries)
+        public Task<bool> ImportAsync(List<DiaryEntryModel> diaries)
         {
             return base.Context.UpdateNav(diaries, new UpdateNavRootOptions()
             {
@@ -145,9 +145,9 @@ namespace SwashbucklerDiary.Repository
             return GetAllDates(it=>true);
         }
 
-        public async Task<List<DateOnly>> GetAllDates(Expression<Func<DiaryModel, bool>> func)
+        public async Task<List<DateOnly>> GetAllDates(Expression<Func<DiaryEntryModel, bool>> func)
         {
-            var dates = await base.Context.Queryable<DiaryModel>()
+            var dates = await base.Context.Queryable<DiaryEntryModel>()
                 .Where(func)
                 .Select(s => s.CreateTime.Date)
                 .Distinct()

@@ -46,7 +46,7 @@ namespace SwashbucklerDiary.Extend
 
             // 创建表
             Type[] types = {
-                typeof(DiaryModel),
+                typeof(DiaryEntryModel),
                 typeof(TagModel),
                 typeof(DiaryTagModel),
                 typeof(UserAchievementModel),

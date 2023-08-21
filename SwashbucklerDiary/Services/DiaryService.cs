@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace SwashbucklerDiary.Services
 {
-    public class DiaryService : BaseService<DiaryModel>, IDiaryService
+    public class DiaryService : BaseService<DiaryEntryModel>, IDiaryService
     {
         private readonly IDiaryRepository _iDiaryRepository;
 
@@ -16,22 +16,22 @@ namespace SwashbucklerDiary.Services
             _iDiaryRepository = iDiaryRepository;
         }
 
-        public override Task<DiaryModel> FindAsync(Guid id)
+        public override Task<DiaryEntryModel> FindAsync(Guid id)
         {
             return _iDiaryRepository.GetByIdAsync(id);
         }
 
-        public override Task<DiaryModel> FindAsync(Expression<Func<DiaryModel, bool>> func)
+        public override Task<DiaryEntryModel> FindAsync(Expression<Func<DiaryEntryModel, bool>> func)
         {
             return _iDiaryRepository.GetFirstAsync(func);
         }
 
-        public override Task<List<DiaryModel>> QueryAsync()
+        public override Task<List<DiaryEntryModel>> QueryAsync()
         {
             return _iDiaryRepository.GetListAsync();
         }
 
-        public override Task<List<DiaryModel>> QueryAsync(Expression<Func<DiaryModel, bool>> func)
+        public override Task<List<DiaryEntryModel>> QueryAsync(Expression<Func<DiaryEntryModel, bool>> func)
         {
             return _iDiaryRepository.GetListAsync(func);
         }
@@ -41,17 +41,17 @@ namespace SwashbucklerDiary.Services
             return _iDiaryRepository.GetTagsAsync(id);
         }
 
-        public Task<bool> UpdateIncludesAsync(DiaryModel model)
+        public Task<bool> UpdateIncludesAsync(DiaryEntryModel model)
         {
             return _iDiaryRepository.UpdateIncludesAsync(model);
         }
 
-        public Task<bool> UpdateTagsAsync(DiaryModel model)
+        public Task<bool> UpdateTagsAsync(DiaryEntryModel model)
         {
             return _iDiaryRepository.UpdateTagsAsync(model);
         }
 
-        public Task<bool> ImportAsync(List<DiaryModel> diaries)
+        public Task<bool> ImportAsync(List<DiaryEntryModel> diaries)
         {
             return _iDiaryRepository.ImportAsync(diaries);
         }
@@ -82,7 +82,7 @@ namespace SwashbucklerDiary.Services
             return _iDiaryRepository.GetAllDates();
         }
 
-        public Task<List<DateOnly>> GetAllDates(Expression<Func<DiaryModel, bool>> func)
+        public Task<List<DateOnly>> GetAllDates(Expression<Func<DiaryEntryModel, bool>> func)
         {
             return _iDiaryRepository.GetAllDates(func);
         }

@@ -79,13 +79,13 @@ namespace SwashbucklerDiary.Components
             await DiaryService.AddAsync(diaries);
         }
 
-        async Task<List<DiaryModel>> GetDefaultDiaries(string[] keys)
+        async Task<List<DiaryEntryModel>> GetDefaultDiaries(string[] keys)
         {
-            var diaries = new List<DiaryModel>();
+            var diaries = new List<DiaryEntryModel>();
             foreach (string key in keys)
             {
                 var content = await PlatformService.ReadMarkdownFileAsync(I18n.T(key)!);
-                var diary = new DiaryModel()
+                var diary = new DiaryEntryModel()
                 {
                     Content = content,
                 };

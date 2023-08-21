@@ -6,7 +6,7 @@ namespace SwashbucklerDiary.Models
     {
         public string? Name { get; set; }
 
-        [Navigate(typeof(DiaryTagModel), nameof(DiaryTagModel.TagId), nameof(DiaryTagModel.DiaryId))]
-        public List<DiaryModel>? Diaries { get; set; }
+        [Navigate(typeof(DiaryTagModel), nameof(DiaryTagModel.TagId), nameof(DiaryTagModel.DiaryEntryId))]
+        public List<DiaryEntryModel>? Diaries { get; set; }
     }
 }

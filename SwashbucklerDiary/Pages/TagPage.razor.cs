@@ -22,7 +22,7 @@ namespace SwashbucklerDiary.Pages
             Tag = tagModel;
         }
 
-        protected override List<DiaryModel> Diaries => Tag.Diaries ?? new();
+        protected override List<DiaryEntryModel> Diaries => Tag.Diaries ?? new();
 
         private void NavigateToWrite()
         {

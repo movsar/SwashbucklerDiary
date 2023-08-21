@@ -162,7 +162,7 @@ namespace SwashbucklerDiary.Services
             return $"{size.ToString("0.#")} {sizes[i]}";
         }
 
-        private string CreateTxtContent(DiaryModel diary)
+        private string CreateTxtContent(DiaryEntryModel diary)
         {
             StringBuilder text = new();
             text.AppendLine(diary.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -200,7 +200,7 @@ namespace SwashbucklerDiary.Services
             return text.ToString();
         }
 
-        public Task<string> ExportTxtZipFileAsync(List<DiaryModel> diaries)
+        public Task<string> ExportTxtZipFileAsync(List<DiaryEntryModel> diaries)
         {
             string outputFolder = Path.Combine(FileSystem.CacheDirectory, "Txt");
             string zipFilePath = Path.Combine(FileSystem.CacheDirectory, $"{exportFileName}Txt.zip");
@@ -231,7 +231,7 @@ namespace SwashbucklerDiary.Services
             return Task.FromResult(zipFilePath);
         }
 
-        public Task<string> ExportJsonZipFileAsync(List<DiaryModel> diaries)
+        public Task<string> ExportJsonZipFileAsync(List<DiaryEntryModel> diaries)
         {
             string outputFolder = Path.Combine(FileSystem.CacheDirectory, "Json");
             string zipFilePath = Path.Combine(FileSystem.CacheDirectory, $"{exportFileName}Json.zip");
@@ -272,7 +272,7 @@ namespace SwashbucklerDiary.Services
             return Task.FromResult(zipFilePath);
         }
 
-        public Task<string> ExportMdZipFileAsync(List<DiaryModel> diaries)
+        public Task<string> ExportMdZipFileAsync(List<DiaryEntryModel> diaries)
         {
             string outputFolder = Path.Combine(FileSystem.CacheDirectory, "Markdown");
             string zipFilePath = Path.Combine(FileSystem.CacheDirectory, $"{exportFileName}Markdown.zip");
@@ -307,7 +307,7 @@ namespace SwashbucklerDiary.Services
             return Task.FromResult(zipFilePath);
         }
 
-        private async Task<bool> CreateFileAndSaveAsync(Func<List<DiaryModel>, Task<string>> func, string type, List<DiaryModel> diaries)
+        private async Task<bool> CreateFileAndSaveAsync(Func<List<DiaryEntryModel>, Task<string>> func, string type, List<DiaryEntryModel> diaries)
         {
             string filePath = await func.Invoke(diaries);
             string extension = Path.GetExtension(filePath);
@@ -316,13 +316,13 @@ namespace SwashbucklerDiary.Services
             return path is not null;
         }
 
-        public Task<bool> ExportTxtZipFileAndSaveAsync(List<DiaryModel> diaries)
+        public Task<bool> ExportTxtZipFileAndSaveAsync(List<DiaryEntryModel> diaries)
             => CreateFileAndSaveAsync(ExportTxtZipFileAsync, "Txt", diaries);
 
-        public Task<bool> ExportJsonZipFileAndSaveAsync(List<DiaryModel> diaries)
+        public Task<bool> ExportJsonZipFileAndSaveAsync(List<DiaryEntryModel> diaries)
             => CreateFileAndSaveAsync(ExportJsonZipFileAsync, "Json", diaries);
 
-        public Task<bool> ExportMdZipFileAndSaveAsync(List<DiaryModel> diaries)
+        public Task<bool> ExportMdZipFileAndSaveAsync(List<DiaryEntryModel> diaries)
             => CreateFileAndSaveAsync(ExportMdZipFileAsync, "Markdown", diaries);
 
         private Task<string?> SaveFile(string name, string sourceFilePath)
@@ -480,7 +480,7 @@ namespace SwashbucklerDiary.Services
             File.Copy(filePath, outFilePath, true);
         }
 
-        public async Task<List<DiaryModel>> ImportJsonFileAsync(string filePath)
+        public async Task<List<DiaryEntryModel>> ImportJsonFileAsync(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -505,11 +505,11 @@ namespace SwashbucklerDiary.Services
                 return new();
             }
 
-            var diaries = new List<DiaryModel>();
+            var diaries = new List<DiaryEntryModel>();
             foreach (string jsonFile in jsonFiles)
             {
                 using FileStream openStream = File.OpenRead(jsonFile);
-                var diarie = await JsonSerializer.DeserializeAsync<DiaryModel>(openStream);
+                var diarie = await JsonSerializer.DeserializeAsync<DiaryEntryModel>(openStream);
                 if (diarie is not null)
                 {
                     diaries.Add(diarie);
@@ -541,20 +541,20 @@ namespace SwashbucklerDiary.Services
             }
         }
 
-        public async Task<Stream> BackupDatabase(List<DiaryModel> diaries, bool copyResources)
+        public async Task<Stream> BackupDatabase(List<DiaryEntryModel> diaries, bool copyResources)
         {
             string filePath = await ExportDBZipFileAsync(diaries, copyResources);
             return File.OpenRead(filePath);
         }
 
-        public async Task<string?> BackupDatabase(string path, List<DiaryModel> diaries, bool copyResources)
+        public async Task<string?> BackupDatabase(string path, List<DiaryEntryModel> diaries, bool copyResources)
         {
             string filePath = await ExportDBZipFileAsync(diaries, copyResources);
             string destFileName = GetBackupFileName();
             return await SaveFile(path, destFileName, filePath);
         }
 
-        public Task<string> ExportDBZipFileAsync(List<DiaryModel> diaries, bool copyResources)
+        public Task<string> ExportDBZipFileAsync(List<DiaryEntryModel> diaries, bool copyResources)
         {
             string outputFolder = Path.Combine(FileSystem.CacheDirectory, "DB");
             string zipFilePath = Path.Combine(FileSystem.CacheDirectory, $"{exportFileName}DB.zip");
@@ -584,7 +584,7 @@ namespace SwashbucklerDiary.Services
             return Task.FromResult(zipFilePath);
         }
 
-        private void CopyDiaryResource(List<DiaryModel> diaries, string outputFolder)
+        private void CopyDiaryResource(List<DiaryEntryModel> diaries, string outputFolder)
         {
             var resources = diaries.SelectMany(a => a.Resources ?? new()).Distinct().ToList();
 

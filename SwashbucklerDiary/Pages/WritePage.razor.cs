@@ -26,7 +26,7 @@ namespace SwashbucklerDiary.Pages
         private MyMarkdown? MyMarkdown;
         private MMTextarea? MMTextarea;
         private List<DynamicListItem> ListItemModels = new();
-        private DiaryModel Diary = new()
+        private DiaryEntryModel Diary = new()
         {
             Tags = new(),
             Resources = new(),
@@ -48,7 +48,7 @@ namespace SwashbucklerDiary.Pages
         public Guid? TagId { get; set; }
         [Parameter]
         [SupplyParameterFromQuery]
-        public Guid? DiaryId { get; set; }
+        public Guid? DiaryEntryId { get; set; }
 
         public void Dispose()
         {
@@ -69,7 +69,7 @@ namespace SwashbucklerDiary.Pages
             await LoadSettings();
             await UpdateTags();
             await SetTag();
-            await SetDiary();
+            await SetEntry();
         }
 
         protected override async void NavigateToBack()
@@ -137,15 +137,15 @@ namespace SwashbucklerDiary.Pages
             }
         }
 
-        private async Task SetDiary()
+        private async Task SetEntry()
         {
-            if (DiaryId == null)
+            if (DiaryEntryId == null)
             {
                 CreateMode = true;
                 return;
             }
 
-            var diary = await DiaryService.FindAsync((Guid)DiaryId);
+            var diary = await DiaryService.FindAsync((Guid)DiaryEntryId);
             if (diary == null)
             {
                 return;

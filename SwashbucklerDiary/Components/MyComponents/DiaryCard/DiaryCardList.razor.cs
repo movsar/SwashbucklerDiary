@@ -8,16 +8,16 @@ namespace SwashbucklerDiary.Components
 {
     public partial class DiaryCardList : MyComponentBase
     {
-        private List<DiaryModel> _value = default!;
-        private List<DiaryModel> _internalValue = new();
+        private List<DiaryEntryModel> _value = default!;
+        private List<DiaryEntryModel> _internalValue = new();
         private bool ShowDeleteDiary;
         private bool ShowSelectTag;
         private bool ShowExport;
         private bool ShowPrivacy;
         private bool ShowIcon;
         private string? DateFormat;
-        private DiaryModel SelectedDiary = new();
-        private List<DiaryModel> ExportDiaries = new();
+        private DiaryEntryModel SelectedDiary = new();
+        private List<DiaryEntryModel> ExportDiaries = new();
         private int loadCount = 20;
 
         [Inject]
@@ -29,7 +29,7 @@ namespace SwashbucklerDiary.Components
         protected ISettingsService SettingsService { get; set; } = default!;
 
         [Parameter]
-        public List<DiaryModel> Value
+        public List<DiaryEntryModel> Value
         {
             get => _value.OrderByDescending(it => it.Top).ToList();
             set => SetValue(value);
@@ -55,7 +55,7 @@ namespace SwashbucklerDiary.Components
             await base.OnInitializedAsync();
         }
 
-        private List<DiaryModel> InternalValue
+        private List<DiaryEntryModel> InternalValue
         {
             get => _internalValue.OrderByDescending(it => it.Top).ToList();
             set => _internalValue = value;
@@ -67,7 +67,7 @@ namespace SwashbucklerDiary.Components
             set => SelectedDiary.Tags = value;
         }
 
-        private void SetValue(List<DiaryModel> value)
+        private void SetValue(List<DiaryEntryModel> value)
         {
             if (_value != value)
             {
@@ -88,20 +88,20 @@ namespace SwashbucklerDiary.Components
             DateFormat = await SettingsService.Get(SettingType.DiaryCardDateFormat);
         }
 
-        private async Task HandleTopping(DiaryModel diaryModel)
+        private async Task HandleTopping(DiaryEntryModel diaryModel)
         {
             diaryModel.Top = !diaryModel.Top;
             diaryModel.UpdateTime = DateTime.Now;
             await DiaryService.UpdateAsync(diaryModel);
         }
 
-        private void OpenDeleteDialog(DiaryModel diaryModel)
+        private void OpenDeleteDialog(DiaryEntryModel diaryModel)
         {
             SelectedDiary = diaryModel;
             ShowDeleteDiary = true;
         }
 
-        private async Task HandleDelete(DiaryModel diaryModel)
+        private async Task HandleDelete(DiaryEntryModel diaryModel)
         {
             ShowDeleteDiary = false;
             bool flag = await DiaryService.DeleteAsync(diaryModel);
@@ -130,7 +130,7 @@ namespace SwashbucklerDiary.Components
             await OnUpdate.InvokeAsync();
         }
 
-        private async Task HandleCopy(DiaryModel diaryModel)
+        private async Task HandleCopy(DiaryEntryModel diaryModel)
         {
             var text = DiaryCopyContent(diaryModel);
             await PlatformService.SetClipboard(text);
@@ -138,7 +138,7 @@ namespace SwashbucklerDiary.Components
             await AlertService.Success(I18n.T("Share.CopySuccess"));
         }
 
-        private async Task HandleTag(DiaryModel diary)
+        private async Task HandleTag(DiaryEntryModel diary)
         {
             SelectedDiary = diary;
             SelectedTags = await DiaryService.GetTagsAsync(SelectedDiary.Id);
@@ -153,12 +153,12 @@ namespace SwashbucklerDiary.Components
             ShowSelectTag = false;
         }
 
-        private void HandleClick(DiaryModel diaryModel)
+        private void HandleClick(DiaryEntryModel diaryModel)
         {
             NavigateService.NavigateTo($"/read/{diaryModel.Id}");
         }
 
-        private static string DiaryCopyContent(DiaryModel diary)
+        private static string DiaryCopyContent(DiaryEntryModel diary)
         {
             if (string.IsNullOrEmpty(diary.Title))
             {
@@ -167,13 +167,13 @@ namespace SwashbucklerDiary.Components
             return diary.Title + "\n" + diary.Content;
         }
 
-        private void OpenExportDialog(DiaryModel diary)
+        private void OpenExportDialog(DiaryEntryModel diary)
         {
             ExportDiaries = new() { diary };
             ShowExport = true;
         }
 
-        private async Task HandlePrivacy(DiaryModel diaryModel)
+        private async Task HandlePrivacy(DiaryEntryModel diaryModel)
         {
             diaryModel.Private = !diaryModel.Private;
             diaryModel.UpdateTime = DateTime.Now;
@@ -203,7 +203,7 @@ namespace SwashbucklerDiary.Components
             args.Status = InternalValue.Count == Value.Count ? InfiniteScrollLoadStatus.Empty : InfiniteScrollLoadStatus.Ok;
         }
 
-        private List<DiaryModel> MockRequest()
+        private List<DiaryEntryModel> MockRequest()
         {
             return Value.Skip(_internalValue.Count).Take(loadCount).ToList();
         }

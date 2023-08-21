@@ -2,7 +2,7 @@
 
 namespace SwashbucklerDiary.Models
 {
-    public class DiaryModel : BaseModel
+    public class DiaryEntryModel : BaseModel
     {
         public string? Title { get; set; }
         public string? Content { get; set; }
@@ -12,9 +12,9 @@ namespace SwashbucklerDiary.Models
         public bool Top { get; set; }
         public bool Private { get; set; }
 
-        [Navigate(typeof(DiaryTagModel), nameof(DiaryTagModel.DiaryId), nameof(DiaryTagModel.TagId))]
+        [Navigate(typeof(DiaryTagModel), nameof(DiaryTagModel.DiaryEntryId), nameof(DiaryTagModel.TagId))]
         public List<TagModel>? Tags { get; set; }
-        [Navigate(typeof(DiaryResourceModel), nameof(DiaryResourceModel.DiaryId), nameof(DiaryResourceModel.ResourceUri))]
+        [Navigate(typeof(DiaryResourceModel), nameof(DiaryResourceModel.DiaryEntryId), nameof(DiaryResourceModel.ResourceUri))]
         public List<ResourceModel>? Resources { get; set; }
     }
 }

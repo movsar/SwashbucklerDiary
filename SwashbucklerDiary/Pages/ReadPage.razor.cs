@@ -11,7 +11,7 @@ namespace SwashbucklerDiary.Pages
 {
     public partial class ReadPage : PageComponentBase, IAsyncDisposable
     {
-        private DiaryModel Diary = new();
+        private DiaryEntryModel Diary = new();
         private bool ShowDelete;
         private bool ShowMenu;
         private bool ShowShare;
@@ -20,7 +20,7 @@ namespace SwashbucklerDiary.Pages
         private bool Markdown;
         private List<DynamicListItem> ListItemModels = new();
         private List<DynamicListItem> ShareItems = new();
-        private List<DiaryModel> ExportDiaries = new();
+        private List<DiaryEntryModel> ExportDiaries = new();
 
         [Inject]
         private IDiaryService DiaryService { get; set; } = default!;
@@ -143,7 +143,7 @@ namespace SwashbucklerDiary.Pages
 
         private void OnEdit()
         {
-            NavigateService.NavigateTo($"/write?DiaryId={Id}");
+            NavigateService.NavigateTo($"/write?DiaryEntryId={Id}");
         }
 
         private async Task OnTopping()

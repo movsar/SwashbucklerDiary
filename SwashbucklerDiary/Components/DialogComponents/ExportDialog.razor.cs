@@ -16,7 +16,7 @@ namespace SwashbucklerDiary.Components
         protected IAppDataService AppDataService { get; set; } = default!;
 
         [Parameter]
-        public List<DiaryModel> Diaries { get; set; } = new();
+        public List<DiaryEntryModel> Diaries { get; set; } = new();
         protected override void OnInitialized()
         {
             LoadView();

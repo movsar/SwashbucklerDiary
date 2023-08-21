@@ -15,25 +15,25 @@ namespace SwashbucklerDiary.Components
         private IconService IconService { get; set; } = default!;
 
         [Parameter]
-        public DiaryModel? Value { get; set; }
+        public DiaryEntryModel? Value { get; set; }
         [Parameter]
         public string? Class { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnTopping { get; set; }
+        public EventCallback<DiaryEntryModel> OnTopping { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnDelete { get; set; }
+        public EventCallback<DiaryEntryModel> OnDelete { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnCopy { get; set; }
+        public EventCallback<DiaryEntryModel> OnCopy { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnTag { get; set; }
+        public EventCallback<DiaryEntryModel> OnTag { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnExport { get; set; }
+        public EventCallback<DiaryEntryModel> OnExport { get; set; }
         [Parameter]
         public bool Privacy { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnPrivacy { get; set; }
+        public EventCallback<DiaryEntryModel> OnPrivacy { get; set; }
         [Parameter]
-        public EventCallback<DiaryModel> OnClick { get; set; }
+        public EventCallback<DiaryEntryModel> OnClick { get; set; }
         [Parameter]
         public bool Icon { get; set; }
         [Parameter]

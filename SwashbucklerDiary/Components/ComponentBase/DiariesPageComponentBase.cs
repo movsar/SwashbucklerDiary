@@ -11,7 +11,7 @@ namespace SwashbucklerDiary.Components
         [Inject]
         protected ITagService TagService { get; set; } = default!;
 
-        protected virtual List<DiaryModel> Diaries { get; set; } = new();
+        protected virtual List<DiaryEntryModel> Diaries { get; set; } = new();
         protected virtual List<TagModel> Tags { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
