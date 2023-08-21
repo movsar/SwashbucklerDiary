@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace SwashbucklerDiary.Pages
 {
-    public partial class PrivacyLibraryPage : DiariesPageComponentBase
+    public partial class PrivacyLibraryPage : DiaryEntriesPageComponentBase
     {
         private bool ShowFilter;
         private SearchForm SearchForm = new();

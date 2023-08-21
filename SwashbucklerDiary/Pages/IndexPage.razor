@@ -3,75 +3,82 @@
 
 <link href="css/extend/masa-blazor-extend-enqueued-snackbars.css" rel="stylesheet" />
 
-<MAppBar App
-          Elevation="0">
-     <MTabs @bind-Value="tab"
-            ActiveClass="text-h6 font-weight-bold"
+@if (!IsEnabled)
+{
+    <input type="text" value="SwashDiary" class="mt-4" @onchange="((e) => OnPasswordEntered(e))" />
+}
+else
+{
+    <MAppBar App
+              Elevation="0">
+         <MTabs @bind-Value="tab"
+                ActiveClass="text-h6 font-weight-bold"
            HideSlider>
-        <MTab Class="my-tab"
-              Ripple="false">
-            @(I18n.T("Index.All"))
-        </MTab>
-        <MTab Class="my-tab"
-              Ripple="false">
-            @(I18n.T("Index.Tag"))
-        </MTab>
-    </MTabs>
-    <MSpacer></MSpacer>
-    <MButton Large
-             Icon
-              OnClick="@(()=>To("search"))">
-         <MIcon>mdi-magnify</MIcon>
-     </MButton>
- </MAppBar>
+         <MTab Class="my-tab"
+               Ripple="false">
+             @(I18n.T("Index.All"))
+            </MTab>
+            <MTab Class="my-tab"
+                  Ripple="false">
+                @(I18n.T("Index.Tag"))
+            </MTab>
+        </MTabs>
+        <MSpacer></MSpacer>
+        <MButton Large
+              Icon
+                  OnClick="@(()=>To("search"))">
+             <MIcon>mdi-magnify</MIcon>
+         </MButton>
+     </MAppBar>
 
- <SwiperTabItems @bind-Value="tab">
-     <SwiperTabItem Id="all-diaries-scroll">
-         <div class="mb-5 pl-2">
-             @if (ShowDate)
-            {
-                <div class="text--secondary mb-2">
-                    @(DateTime.Now.ToString("yyyy/MM/dd") + " " + I18n.ToWeek())
-                </div>
-            }
+    <SwiperTabItems @bind-Value="tab">
+        <SwiperTabItem Id="all-diaries-scroll">
+            <div class="mb-5 pl-2">
+                @if (ShowDate)
+                {
+                    <div class="text--secondary mb-2">
+                        @(DateTime.Now.ToString("yyyy/MM/dd") + " " + I18n.ToWeek())
+                    </div>
+                }
 
-            @if (ShowWelcomeText)
-            {
-                <div class="text-h6">
-                    @GetWelcomeText()
-                </div>
-            }
+                @if (ShowWelcomeText)
+                {
+                    <div class="text-h6">
+                        @GetWelcomeText()
+                    </div>
+                }
 
-        </div>
+            </div>
 
-        <DiaryCardList @bind-Tags="Tags"
-                       Value="Diaries"
-                       ScrollParent="@("#all-diaries-scroll")">
-        </DiaryCardList>
-    </SwiperTabItem>
-    <SwiperTabItem Id="all-tags-scroll">
-        <TagCardList @bind-Value="Tags"
-                     ScrollParent="@("#all-tags-scroll")">
-        </TagCardList>
-    </SwiperTabItem>
-</SwiperTabItems>
+            <DiaryCardList @bind-Tags="Tags"
+                           Value="Diaries"
+                           ScrollParent="@("#all-diaries-scroll")">
+            </DiaryCardList>
+        </SwiperTabItem>
+        <SwiperTabItem Id="all-tags-scroll">
+            <TagCardList @bind-Value="Tags"
+                         ScrollParent="@("#all-tags-scroll")">
+            </TagCardList>
+        </SwiperTabItem>
+    </SwiperTabItems>
 
-@if (tab == 0)
-{
-    <MyFloatButton Icon="mdi-pencil"
-                   OnClick="@(()=>To("write"))">
-    </MyFloatButton>
+    @if (tab == 0)
+    {
+        <MyFloatButton Icon="mdi-pencil"
+                       OnClick="@(()=>To("write"))">
+        </MyFloatButton>
+    }
+
+    @if (tab == 1)
+    {
+        <MyFloatButton Icon="mdi-plus"
+                       OnClick="()=>ShowAddTag=true">
+        </MyFloatButton>
+    }
+
+    <InputDialog @bind-Value="ShowAddTag"
+                 Title="@(I18n.T("Tag.Add"))"
+                 Placeholder="@(I18n.T("Tag.Placeholder"))"
+                 OnOK="SaveAddTag">
+    </InputDialog>
 }
-
-@if (tab == 1)
-{
-    <MyFloatButton Icon="mdi-plus"
-                   OnClick="()=>ShowAddTag=true">
-    </MyFloatButton>
-}
-
-<InputDialog @bind-Value="ShowAddTag"
-             Title="@(I18n.T("Tag.Add"))"
-             Placeholder="@(I18n.T("Tag.Placeholder"))"
-             OnOK="SaveAddTag">
-</InputDialog>

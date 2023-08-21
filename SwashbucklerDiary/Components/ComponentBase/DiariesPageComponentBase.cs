@@ -4,7 +4,8 @@ using SwashbucklerDiary.Models;
 
 namespace SwashbucklerDiary.Components
 {
-    public class DiariesPageComponentBase : PageComponentBase
+    public class DiariesPageComponentBase
+        : PageComponentBase
     {
         [Inject]
         protected IDiaryService DiaryService { get; set; } = default!;
@@ -13,7 +14,14 @@ namespace SwashbucklerDiary.Components
 
         protected virtual List<DiaryEntryModel> Diaries { get; set; } = new();
         protected virtual List<TagModel> Tags { get; set; } = new();
-
+        protected bool IsEnabled = false;
+        public void OnPasswordEntered(ChangeEventArgs changeEventArgs)
+        {
+            if (changeEventArgs?.Value == "abc")
+            {
+                IsEnabled = true;
+            }
+        }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -35,5 +43,7 @@ namespace SwashbucklerDiary.Components
         {
             Tags = await TagService.QueryAsync();
         }
+
+
     }
 }

@@ -25,6 +25,13 @@ namespace SwashbucklerDiary.Components
         {
             await base.OnInitializedAsync();
             await LoadSettings();
+            await Authorize();
+        }
+
+        private async Task Authorize()
+        {
+            var password = await SettingsService.Get(SettingType.PrivatePassword);
+
         }
 
         private Dictionary<string, string> Languages => I18n.Languages;
@@ -33,7 +40,7 @@ namespace SwashbucklerDiary.Components
         {
             var lang = await SettingsService.Get<bool>(SettingType.FirstSetLanguage);
             var agree = await SettingsService.Get<bool>(SettingType.FirstAgree);
-            
+
             if (lang && agree)
             {
                 Show = false;

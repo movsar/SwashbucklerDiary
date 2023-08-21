@@ -4,7 +4,7 @@ using SwashbucklerDiary.Models;
 
 namespace SwashbucklerDiary.Pages
 {
-    public partial class TagPage : DiariesPageComponentBase
+    public partial class TagPage : DiaryEntriesPageComponentBase
     {
         private TagModel Tag = new();
 

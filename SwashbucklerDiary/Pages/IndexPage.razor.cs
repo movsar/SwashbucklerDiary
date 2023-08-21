@@ -6,7 +6,7 @@ using SwashbucklerDiary.Models;
 
 namespace SwashbucklerDiary.Pages
 {
-    public partial class IndexPage : DiariesPageComponentBase
+    public partial class IndexPage : DiaryEntriesPageComponentBase
     {
         private bool ShowWelcomeText;
         private bool ShowDate;
