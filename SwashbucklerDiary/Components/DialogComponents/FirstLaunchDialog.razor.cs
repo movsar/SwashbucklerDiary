@@ -59,7 +59,7 @@ namespace SwashbucklerDiary.Components
 
             SelectedLanguage = true;
             I18n.SetCulture(value);
-            await InsertDefaultDiaries();
+            //await InsertDefaultDiaries();
             await SettingsService.Save(SettingType.FirstSetLanguage, true);
             await SettingsService.Save(SettingType.Language, value);
             await StateService.NotifyFirstLauchChanged();
