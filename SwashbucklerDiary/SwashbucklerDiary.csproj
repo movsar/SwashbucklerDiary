@@ -15,7 +15,7 @@
 		<NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
 
         <!-- Display name -->
-        <ApplicationTitle>侠客日记</ApplicationTitle>
+        <ApplicationTitle>SwashDiary</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.yucore.swashbucklerdiary</ApplicationId>

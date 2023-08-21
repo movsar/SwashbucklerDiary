@@ -28,7 +28,7 @@
   "Main": {
     "Diary": "Diary",
     "History": "History",
-    "Mine": "Mine"
+    "Profile": "Profile"
   },
   "Index": {
     "All": "All",
@@ -137,8 +137,8 @@
     "ClosePrivacy": "Remove from privacy library"
   },
   "AppName": "Swashbuckler Diary",
-  "Mine": {
-    "Mine": "Mine",
+  "Profile": {
+    "Profile": "Profile",
     "Sign": "Hear the barking of dogs at the firewood gate, and return at night in the wind and snow",
     "DiaryCount": "Diaries",
     "WordCount": "Words",

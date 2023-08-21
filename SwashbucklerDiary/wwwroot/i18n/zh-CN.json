@@ -28,7 +28,7 @@
   "Main": {
     "Diary": "日记",
     "History": "回忆",
-    "Mine": "我的"
+    "Profile": "我的"
   },
   "Index": {
     "All": "全部",
@@ -137,8 +137,8 @@
     "ClosePrivacy": "移出隐私库"
   },
   "AppName": "侠客日记",
-  "Mine": {
-    "Mine": "我的",
+  "Profile": {
+    "Profile": "我的",
     "Sign": "柴门闻犬吠，风雪夜归人",
     "DiaryCount": "日记数",
     "WordCount": "总字数",

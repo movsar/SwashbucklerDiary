@@ -29,7 +29,7 @@ namespace SwashbucklerDiary.Pages
         private async Task LoadSettings()
         {
             UserName = await SettingsService.Get(SettingType.UserName, I18n.T("AppName"));
-            Sign = await SettingsService.Get(SettingType.Sign, I18n.T("Mine.Sign"));
+            Sign = await SettingsService.Get(SettingType.Sign, I18n.T("Profile.Sign"));
         }
 
         private async Task SaveSign(string tagName)

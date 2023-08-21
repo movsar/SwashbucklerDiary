@@ -57,7 +57,7 @@ namespace SwashbucklerDiary.Shared
             {
                 new (this, "Main.Diary", "mdi-notebook-outline", "mdi-notebook", () => To("")),
                 new (this, "Main.History", "mdi-clock-outline", "mdi-clock", () => To("history")),
-                new (this, "Main.Mine", "mdi-account-outline", "mdi-account", () => To("mine"))
+                new (this, "Main.Profile", "mdi-account-outline", "mdi-account", () => To("profile"))
             };
         }
 

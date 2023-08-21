@@ -7,7 +7,7 @@ using SwashbucklerDiary.Utilities;
 
 namespace SwashbucklerDiary.Pages
 {
-    public partial class MinePage : PageComponentBase
+    public partial class ProfilePage : PageComponentBase
     {
         private int DiaryCount;
         private long WordCount;
@@ -61,29 +61,29 @@ namespace SwashbucklerDiary.Pages
             ViewLists = new()
             {
                 {
-                    "Mine.Data",
+                    "Profile.Data",
                     new()
                     {
-                        new(this, "Mine.Backups","mdi-folder-sync-outline",() => To("backups")),
-                        new(this, "Mine.Export","mdi-export",() => To("export")),
-                        new(this, "Mine.Achievement.Name","mdi-trophy-outline",() => To("achievement")),
+                        new(this, "Profile.Backups","mdi-folder-sync-outline",() => To("backups")),
+                        new(this, "Profile.Export","mdi-export",() => To("export")),
+                        new(this, "Profile.Achievement.Name","mdi-trophy-outline",() => To("achievement")),
                     }
                 },
                 {
-                    "Mine.Settings",
+                    "Profile.Settings",
                     new()
                     {
-                        new(this,"Mine.Settings","mdi-cog-outline",() => To("setting")),
-                        new(this,"Mine.Languages","mdi-web",() => ShowLanguage = true),
-                        new(this,"Mine.Night","mdi-weather-night",() => ShowThemeState = true),
+                        new(this,"Profile.Settings","mdi-cog-outline",() => To("setting")),
+                        new(this,"Profile.Languages","mdi-web",() => ShowLanguage = true),
+                        new(this,"Profile.Night","mdi-weather-night",() => ShowThemeState = true),
                     }
                 },
                 {
-                    "Mine.Other",
+                    "Profile.Other",
                     new()
                     {
-                        new(this,"Mine.Feedback","mdi-email-outline",() => ShowFeedback = true),
-                        new(this,"Mine.About","mdi-information-outline",() => To("about")),
+                        new(this,"Profile.Feedback","mdi-email-outline",() => ShowFeedback = true),
+                        new(this,"Profile.About","mdi-information-outline",() => To("about")),
                     }
                 }
             };
@@ -99,7 +99,7 @@ namespace SwashbucklerDiary.Pages
         {
             Language = await SettingsService.Get(SettingType.Language);
             UserName = await SettingsService.Get(SettingType.UserName, I18n.T("AppName"));
-            Sign = await SettingsService.Get(SettingType.Sign, I18n.T("Mine.Sign"));
+            Sign = await SettingsService.Get(SettingType.Sign, I18n.T("Profile.Sign"));
             int themeState = await SettingsService.Get(SettingType.ThemeState);
             ThemeState = (ThemeState)themeState;
         }
@@ -131,13 +131,13 @@ namespace SwashbucklerDiary.Pages
                 else
                 {
                     await PlatformService.SetClipboard(mail);
-                    await AlertService.Success(I18n.T("Mine.MailCopy"));
+                    await AlertService.Success(I18n.T("Profile.MailCopy"));
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"{e.Message}\n{e.StackTrace}");
-                await AlertService.Error(I18n.T("Mine.SendMailFail"));
+                await AlertService.Error(I18n.T("Profile.SendMailFail"));
             }
         }
 
@@ -161,13 +161,13 @@ namespace SwashbucklerDiary.Pages
                 if (!flag)
                 {
                     await PlatformService.SetClipboard(qqGroup);
-                    await AlertService.Success(I18n.T("Mine.QQGroupCopy"));
+                    await AlertService.Success(I18n.T("Profile.QQGroupCopy"));
                 }
             }
             catch (Exception e)
             {
                 Log.Error($"{e.Message}\n{e.StackTrace}");
-                await AlertService.Error(I18n.T("Mine.QQGroupError"));
+                await AlertService.Error(I18n.T("Profile.QQGroupError"));
             }
 
         }

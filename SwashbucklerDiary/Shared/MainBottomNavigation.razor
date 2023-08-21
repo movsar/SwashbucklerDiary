@@ -31,7 +31,7 @@
             }
             else
             {
-                string[] links = { "", "history", "mine" };
+                string[] links = { "", "history", "profile" };
                 var url = Navigation!.ToBaseRelativePath(Navigation.Uri);
                 return links.Any(it => it == url.Split("?")[0]);
             }

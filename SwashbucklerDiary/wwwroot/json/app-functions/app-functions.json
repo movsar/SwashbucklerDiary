@@ -108,9 +108,9 @@
     "Href": "lanReceiver"
   },
   {
-    "Name": "Mine.Achievement.Name",
+    "Name": "Profile.Achievement.Name",
     "Icon": "mdi-trophy-outline",
-    "Path": "Mine.Achievement.Path",
+    "Path": "Profile.Achievement.Path",
     "Href": "achievement"
   },
   {

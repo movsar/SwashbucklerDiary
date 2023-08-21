@@ -1,4 +1,4 @@
-﻿@page "/mine"
+﻿@page "/profile"
 @using SwashbucklerDiary.Models
 @inherits PageComponentBase
 
@@ -7,7 +7,7 @@
 <MAppBar App="true"
          Elevation="0">
     <MToolbarTitle Class="font-weight-bold">
-        @(I18n.T("Mine.Mine"))
+        @(I18n.T("Profile.Profile"))
     </MToolbarTitle>
     <MSpacer></MSpacer>
     <MButton Large
@@ -67,7 +67,7 @@
                     <MListItemContent Class="justify-space-around text-center">
                         <div style="flex:unset">
                             <MListItemSubtitle>
-                                @(I18n.T("Mine.DiaryCount"))
+                                @(I18n.T("Profile.DiaryCount"))
                             </MListItemSubtitle>
                             <MListItemTitle Class="mt-2 font-weight-bold text-h6">
                                 @DiaryCount
@@ -75,7 +75,7 @@
                         </div>
                         <div style="flex:unset">
                             <MListItemSubtitle>
-                                @(I18n.T("Mine.WordCount"))
+                                @(I18n.T("Profile.WordCount"))
                             </MListItemSubtitle>
                             <MListItemTitle Class="mt-2 font-weight-bold text-h6">
                                 @WordCount
@@ -83,7 +83,7 @@
                         </div>
                         <div style="flex:unset">
                             <MListItemSubtitle>
-                                @(I18n.T("Mine.ActiveDayCount"))
+                                @(I18n.T("Profile.ActiveDayCount"))
                             </MListItemSubtitle>
                             <MListItemTitle Class="mt-2 font-weight-bold text-h6">
                                 @ActiveDayCount
@@ -137,7 +137,7 @@
           MaxWidth="420">
     <MCard Rounded="@("lg")">
         <MCardTitle Class="font-weight-bold">
-            @(I18n.T("Mine.SelectLanguage"))
+            @(I18n.T("Profile.SelectLanguage"))
             <MSpacer></MSpacer>
             <MButton Icon="true"
                      OnClick="()=>ShowLanguage= false">
@@ -169,7 +169,7 @@
           MaxWidth="420">
     <MCard Rounded="@("lg")">
         <MCardTitle Class="font-weight-bold">
-            @(I18n.T("Mine.Night"))
+            @(I18n.T("Profile.Night"))
             <MSpacer></MSpacer>
             <MButton Icon="true"
                      OnClick="()=>ShowThemeState= false">
@@ -198,7 +198,7 @@
 </MMDialog>
 
 <MultiDialog @bind-Value="ShowFeedback"
-             Title="@(I18n.T("Mine.ContactWay"))"
+             Title="@(I18n.T("Profile.ContactWay"))"
              ListItemModels="FeedbackTypes">
 </MultiDialog>
 

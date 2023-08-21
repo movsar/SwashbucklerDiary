@@ -440,11 +440,11 @@ namespace SwashbucklerDiary.Utilities
 			public IDictionary<string, string> Mappings { get; private set; }
 
 			/// <summary>
-			/// Given a file path, determine the MIME type
+			/// Given a file path, deterprofile the MIME type
 			/// </summary>
 			/// <param name="subpath">A file path</param>
 			/// <param name="contentType">The resulting MIME type</param>
-			/// <returns>True if MIME type could be determined</returns>
+			/// <returns>True if MIME type could be deterprofiled</returns>
 			public bool TryGetContentType(string subpath, [MaybeNullWhen(false)] out string contentType)
 			{
 				var extension = GetExtension(subpath);

@@ -15,13 +15,17 @@ namespace SwashbucklerDiary.Config
             SQLite.SQLiteOpenFlags.SharedCache;
 
         public static string DatabasePath =>
-            Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                @"G:\My Drive\Diary Database",
+                DatabaseFilename
+            );
         public static string ConnectionString = new SqliteConnectionStringBuilder()
         {
             DataSource = DatabasePath,
             Mode = SqliteOpenMode.ReadWriteCreate,
             Cache = SqliteCacheMode.Shared
-            
+
         }.ToString();
     }
 }
