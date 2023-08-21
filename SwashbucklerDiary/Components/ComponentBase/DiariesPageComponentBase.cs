@@ -4,7 +4,7 @@ using SwashbucklerDiary.Models;
 
 namespace SwashbucklerDiary.Components
 {
-    public class DiariesPageComponentBase
+    public class DiaryEntriesPageComponentBase
         : PageComponentBase
     {
         [Inject]
@@ -14,10 +14,10 @@ namespace SwashbucklerDiary.Components
 
         protected virtual List<DiaryEntryModel> Diaries { get; set; } = new();
         protected virtual List<TagModel> Tags { get; set; } = new();
-        protected bool IsEnabled = false;
+        protected static bool IsEnabled = false;
         public void OnPasswordEntered(ChangeEventArgs changeEventArgs)
         {
-            if (changeEventArgs?.Value == "abc")
+            if (changeEventArgs?.Value?.ToString() == "abc")
             {
                 IsEnabled = true;
             }

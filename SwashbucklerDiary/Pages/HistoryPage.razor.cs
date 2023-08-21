@@ -3,7 +3,7 @@ using SwashbucklerDiary.Components;
 
 namespace SwashbucklerDiary.Pages
 {
-    public partial class HistoryPage : DiariesPageComponentBase
+    public partial class HistoryPage : DiaryEntriesPageComponentBase
     {
         private ScrollContainer? scrollContainer;
         private bool NormalCalendarVisible = true;
