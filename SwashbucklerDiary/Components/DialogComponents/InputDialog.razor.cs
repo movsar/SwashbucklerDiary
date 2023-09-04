@@ -26,7 +26,7 @@ namespace SwashbucklerDiary.Components
         [Parameter]
         public string? Placeholder { get; set; }
         [Parameter]
-        public int MaxLength { get; set; } = 20;
+        public int MaxLength { get; set; } = 100;
         [Parameter]
         public string? OKText { get; set; }
         [Parameter]
